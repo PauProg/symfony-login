@@ -254,8 +254,7 @@ Debe devolver `HTTP/1.1 200 OK` (o `200` con el código de estado equivalente).
 
 Captura de la aplicación funcionando:
 
-> Pendiente de añadir: guarda la captura como `docs/captura-arranque.png` y
-> enlázala aquí.
+![Captura de la app](./captura-arranque.png)
 
 ## 10. Enlaces
 

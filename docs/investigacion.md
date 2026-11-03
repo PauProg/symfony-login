@@ -68,9 +68,9 @@ función que devuelve una respuesta.
 
 MVC es un patrón de organización, no una imposición mágica de Symfony:
 
-- **Modelo**: datos y reglas del negocio. En este proyecto aparecerá en la fase 4
-  con las entidades de Doctrine (`src/Entity`) y sus repositorios
-  (`src/Repository`). Ahora mismo todavía no existe.
+- **Modelo**: datos y reglas del negocio. En este proyecto está en
+  `src/Entity/User.php` y `src/Repository/UserRepository.php`, creados en la
+  fase 4 con Doctrine. En la fase 1 todavía no existía.
 - **Vista**: lo que se muestra. Aquí son las plantillas Twig de `templates/`.
 - **Controlador**: recibe la petición, coordina y devuelve la respuesta. Aquí es
   `src/Controller/MainController.php`.
@@ -173,7 +173,7 @@ cuyo archivo vive en `var/` y no necesita contenedor aparte.
 | Herramienta | Versión/requisito | Cómo comprobarlo |
 |---|---|---|
 | PHP | ≥ 8.4 en este proyecto | `php -v` |
-| Extensiones PHP | `ctype`, `iconv` (obligatorias); `pdo_sqlite` (fase 4); `intl` (recomendada) | `php -m` |
+| Extensiones PHP | `ctype`, `iconv` (obligatorias); `pdo_sqlite` (usada por SQLite); `intl` (recomendada) | `php -m` |
 | Composer | 2.x | `composer --version` |
 | Docker | Docker Engine + Compose | `docker --version`, `docker compose version` |
 | Git | Cualquier versión reciente | `git --version` |

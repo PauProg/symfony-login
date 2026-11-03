@@ -276,13 +276,25 @@ la ruta y puede generar URLs absolutas con `url()`.
 |---|---|---|
 | La URL no coincide con ninguna ruta | `404 Not Found` | Router. |
 | El controlador lanza una excepción | `500 Internal Server Error` | Kernel / PHP. |
-| La ruta existe pero el usuario no tiene permiso | `403 Forbidden` | Seguridad (fase 4). |
-| El usuario no está autenticado y la ruta es privada | `302` al login o `403` | Firewall de seguridad (fase 4). |
+| La ruta existe pero el usuario no tiene permiso | `403 Forbidden` | `access_control` / firewall. |
+| El usuario no está autenticado y la ruta es privada | `302` a `/login` | Firewall `main` + `form_login`. |
+| Login correcto | `302` a `/dashboard` | `form_login` (`default_target_path`). |
+| Logout | `302` a `/` | `logout` (`target: app_home`). |
 
-Ahora mismo todas las rutas son públicas y no hay ninguna protección: la seguridad
-se configurará en la fase 4.
+## 7. Estado actual de las rutas
 
-## 7. Enlaces
+- `/` y `/acerca-de` son públicas.
+- `/login` es pública y muestra el formulario de acceso.
+- `/dashboard` está protegida por `access_control` y exige `ROLE_USER`.
+- Si se solicita `/dashboard` sin sesión, el firewall responde con un `302` hacia
+  `/login`; el controlador del dashboard no llega a ejecutarse.
+- Tras un login correcto, `default_target_path` redirige a `/dashboard`.
+- Tras el logout, volver a `/dashboard` redirige de nuevo a `/login`.
+
+El recorrido completo del login, el provider y el logout está en
+[`autenticacion.md`](autenticacion.md).
+
+## 8. Enlaces
 
 - Creación de páginas: <https://symfony.com/doc/current/page_creation.html>
 - Routing: <https://symfony.com/doc/current/routing.html>
