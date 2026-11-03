@@ -5,13 +5,22 @@
         <title>{% block title %}Mi App Symfony{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220%22 width=%22128%22 height=%22128%22><text y=%221.2em%22 font-size=%2296%22>🐘</text></svg>">
         {% block stylesheets %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+            {{ importmap('app') }}
+        {% endblock %}
     </head>
     <body>
         <!-- Navegación Global (Reto 3 y 5) -->
         <nav style="background: #f4f4f4; padding: 10px; margin-bottom: 20px;">
-            <a href="{{ path('app_home') }}">Inicio</a> | 
-            <a href="{{ path('app_about') }}">Acerca de</a>
+            <a href="{{ path('app_home') }}">Inicio</a> |
+            <a href="{{ path('app_about') }}">Acerca de</a> |
+
+            {% if app.user %}
+                <a href="{{ path('app_dashboard') }}">Dashboard</a> |
+                <a href="{{ logout_path() }}">Cerrar sesión</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Iniciar sesión</a>
+            {% endif %}
         </nav>
 
         <!-- Contenido Dinámico de las Páginas Hijas -->

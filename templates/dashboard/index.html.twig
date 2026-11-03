@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block body %}
+    <h1>Bienvenido, {{ user.userIdentifier }}</h1>
+
+    <p>Has iniciado sesión correctamente.</p>
+
+    <p>
+        <a href="{{ logout_path() }}">Cerrar sesión</a>
+    </p>
+{% endblock %}
