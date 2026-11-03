@@ -17,6 +17,20 @@ services:
       - database_data:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
+
+  web:
+    image: php:8.4.1-cli
+    container_name: symfony_app
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/var/www/html
+      - type: bind
+        source: /urs/bin/composer
+        target: /usr/bin/composer
+    working_dir: /var/www/html
+    command: php -S 0.0.0.0:8080 -t public/
+
 ###< doctrine/doctrine-bundle ###
 
 volumes:
