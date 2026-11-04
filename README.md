@@ -250,6 +250,9 @@ Antes hay que rellenar `password` en el entorno `Local` desde la aplicación de
 Postman. En el repositorio esa variable está vacía a propósito. Resultado esperado:
 11 peticiones, 16 aserciones y 0 fallos.
 
+La verificación de este README desde una copia limpia está registrada en
+[`docs/evidencias/fase6-readme.txt`](docs/evidencias/fase6-readme.txt).
+
 ## 5. Cómo se obtiene un usuario de prueba sin exponer secretos reales
 
 El procedimiento es siempre el mismo y no depende de datos versionados:
