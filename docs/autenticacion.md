@@ -507,7 +507,8 @@ curl -I http://localhost:8080/dashboard
 `Location: http://localhost:8080/login`.
 
 Para una sesión limpia, usa una ventana privada del navegador. Los resultados
-detallados de las pruebas se recogerán en `docs/pruebas.md` (fase 5).
+detallados de las pruebas están en `docs/pruebas.md` (fase 5), que incluye la
+colección de Postman, las pruebas funcionales de PHPUnit y las evidencias.
 
 ## 10. Enlaces
 
