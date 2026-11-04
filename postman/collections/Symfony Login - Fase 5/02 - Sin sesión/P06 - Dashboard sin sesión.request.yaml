@@ -1,0 +1,27 @@
+$kind: http-request
+url: "{{baseUrl}}/dashboard"
+method: GET
+scripts:
+  - type: beforeRequest
+    code: "pm.cookies.jar().clear(pm.request.url.getHost(), (error) => {\r
+
+      \    if (error) {\r
+
+      \        console.error(error)\r
+
+      \    }\r
+
+      });"
+    language: text/javascript
+  - type: afterResponse
+    code: "pm.test('P06 - Sin sesión redirige a login', () => {\r
+
+      \    pm.response.to.have.status(302);\r
+
+      \    pm.expect(pm.response.headers.get('Location')).to.include('/login');\r
+
+      });"
+    language: text/javascript
+settings:
+  followRedirects: false
+order: 1000

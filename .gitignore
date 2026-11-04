@@ -18,3 +18,8 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> postman ###
+# Entornos con credenciales reales rellenadas en local
+/postman/environments/*.private.environment.yaml
+###< postman ###

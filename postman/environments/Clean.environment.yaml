@@ -1,0 +1,8 @@
+name: Clean
+values:
+  - key: baseUrl
+    value: http://127.0.0.1:8081
+  - key: username
+    value: postman
+  - key: password
+    value: ''

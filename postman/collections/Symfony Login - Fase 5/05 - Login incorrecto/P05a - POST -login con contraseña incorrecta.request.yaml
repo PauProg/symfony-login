@@ -1,0 +1,25 @@
+$kind: http-request
+name: P05a - POST /login con contraseña incorrecta
+url: "{{baseUrl}}/login"
+method: POST
+headers:
+  Origin: "{{baseUrl}}"
+body:
+  type: urlencoded
+  content:
+    _username: "{{username}}"
+    _password: contraseña-incorrecta
+    _csrf_token: "{{csrf_token}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test('P05a - Credenciales incorrectas vuelven al login', () => {\r
+
+      \    pm.response.to.have.status(302);\r
+
+      \    pm.expect(pm.response.headers.get('Location')).to.include('/login');\r
+
+      });"
+    language: text/javascript
+settings:
+  followRedirects: false
+order: 1000

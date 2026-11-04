@@ -1,0 +1,14 @@
+$kind: http-request
+url: "{{baseUrl}}/login"
+method: GET
+scripts:
+  - type: afterResponse
+    code: "pm.test('P05b - Mensaje de error visible', () => {\r
+
+      \    pm.response.to.have.status(200);\r
+
+      \    pm.expect(pm.response.text()).to.include('Credenciales no válidas');\r
+
+      });"
+    language: text/javascript
+order: 2000

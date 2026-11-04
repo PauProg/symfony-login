@@ -1,0 +1,25 @@
+$kind: http-request
+name: P04a — POST /login con credenciales correctas
+url: "{{baseUrl}}/login"
+method: POST
+headers:
+  Origin: "{{baseUrl}}"
+body:
+  type: urlencoded
+  content:
+    _username: "{{username}}"
+    _password: "{{password}}"
+    _csrf_token: "{{csrf_token}}"
+scripts:
+  - type: afterResponse
+    code: "pm.test('P04a - Login correcto redirige al dashboard', () => {\r
+
+      \    pm.response.to.have.status(302);\r
+
+      \    pm.expect(pm.response.headers.get('Location')).to.include('/dashboard');\r
+
+      });"
+    language: text/javascript
+settings:
+  followRedirects: false
+order: 1000
