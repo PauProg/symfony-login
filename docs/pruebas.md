@@ -428,6 +428,10 @@ cookies del cliente, no la configuración de la aplicación.
 Las evidencias son texto reproducible: cualquiera puede volver a ejecutar los
 mismos comandos y obtener la misma salida. No dependen de capturas de pantalla.
 
+Cada fichero indica el commit sobre el que se ejecutó (`f2028e8`). Después de ese
+commit solo cambiaron la documentación y los propios ficheros de evidencia; el
+código de la aplicación, la colección y los tests son los mismos.
+
 ## 8. Limitaciones
 
 - No se prueban navegadores reales ni JavaScript del cliente: se verifica el HTML
