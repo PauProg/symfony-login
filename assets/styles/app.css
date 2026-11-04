@@ -1,3 +1,223 @@
+:root {
+/* ==========================================================================
+    1. COLORES EN MODO OSCURO (HSL)
+========================================================================== */
+    /* Colores de Fondo y Superficie */
+    --color-bg: hsl(220, 15%, 8%); /* Fondo principal ultra oscuro */
+    --color-surface: hsl(220, 13%, 14%); /* Tarjetas / Contenedores */
+    --color-surface-hover: hsl(220, 13%, 20%); /* Estados hover en contenedores */
+
+    /* Textos (Alto contraste sobre fondo oscuro) */
+    --color-text-main: hsl( 0, 0%, 96%); /* Ratio > 15:1 (Párrafos y texto general) */
+    --color-text-muted: hsl(220, 10%, 75%); /* Ratio > 7:1 (Texto secundario / subtítulos) */
+
+    /* Color de Acento (Rosa) y sus Variantes de Accesibilidad */
+    --color-accent-primary: hsl(330, 85%, 65%); /* Rosa principal (Llamativo para bordes y elementos gráficos) */
+    --color-accent-accessible: hsl(330, 90%, 75%); /* Rosa claro para texto sobre fondo oscuro (Ratio >= 4.5:1) */
+    --color-accent-hover: hsl(330, 85%, 69%); /* Estado hover */
+    --color-on-accent: hsl(330, 100%, 5%); /* Texto oscuro para usar SOBRE botones/elementos rosa (Ratio >= 7:1) */
+
+    /* Bordes */
+    --color-border: hsl(220, 10%, 25%);
+
+    /* Estado de error */
+    --color-error: hsl(0, 80%, 72%); /* Rojo claro sobre fondo oscuro (Ratio > 4.5:1) */
+
+/* ==========================================================================
+    2. TIPOGRAFÍA EXPONENCIAL EN 'EM' (Escala 1.333 - Perfect Fourth)
+    Base recomendada en html/body: 16px (1em = 16px)
+========================================================================== */
+    --font-family-base: "AppFont", sans-serif;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+
+    --text-xs: 0.563em; /* ~9px   (1.333^-2) */
+    --text-sm: 0.75em; /* ~12px  (1.333^-1) */
+    --text-base: 1em; /* 16px   (1.333^0)  */
+    --text-md: 1.333em; /* ~21px  (1.333^1)  */
+    --text-lg: 1.777em; /* ~28px  (1.333^2)  */
+    --text-xl: 2.369em; /* ~38px  (1.333^3)  */
+    --text-2xl: 3.157em; /* ~50px  (1.333^4)  */
+    --text-3xl: 4.209em; /* ~67px  (1.333^5)  */
+
+/* ==========================================================================
+    3. ESPACIADOS EN 'EM' (Base 4px -> 0.25em respecto a base 16px)
+========================================================================== */
+    --space-1: 0.25em; /* 4px  */
+    --space-2: 0.5em; /* 8px  */
+    --space-3: 0.75em; /* 12px */
+    --space-4: 1em; /* 16px */
+    --space-5: 1.25em; /* 20px */
+    --space-6: 1.5em; /* 24px */
+    --space-8: 2em; /* 32px */
+    --space-10: 2.5em; /* 40px */
+    --space-12: 3em; /* 48px */
+    --space-16: 4em; /* 64px */
+
+/* ==========================================================================
+    4. BORDER RADIUS
+========================================================================== */
+    --radius-sm: 0.25rem; /* 4px */
+    --radius-md: 0.5rem; /* 8px */
+    --radius-lg: 1rem; /* 16px */
+    --radius-full: 9999px;
+
+/* ==========================================================================
+    5. ALTURA DE LÍNEA (Line Height)
+========================================================================== */
+    --line-height-heading: 1.2; /* Para títulos (evita desorden visual en varias líneas) */
+    --line-height-body: 1.6; /* Para párrafos (optimizado para lectura continua WCAG) */
+
+/* ==========================================================================
+    6. ESPACIADO DE LETRA (Letter Spacing)
+========================================================================== */
+    --letter-spacing-heading-large: 0.04em; /* Más separado para títulos grandes (H1, H2, 2XL, 3XL) */
+    --letter-spacing-heading: 0.02em; /* Ligero espacio para títulos medianos */
+    --letter-spacing-normal: 0em; /* Normal para texto continuo */
+
+/* ==========================================================================
+    7. ANCHO MÁXIMO (Max Width)
+========================================================================== */
+    --max-width-heading: 14em;
+    --max-width-content: 48em; /* Contenedor principal */
+    --max-width-text: 60ch; /* Longitud de línea cómoda para lectura */
+    --max-width-form: 28em; /* Formulario de login */
+
+/* ==========================================================================
+    8. TRANSICIONES
+========================================================================== */
+    --transition-base: 0.33s ease;
+
+/* ==========================================================================
+    9. TAMAÑOS MÍNIMOS
+========================================================================== */
+    --touch-target: 2.75em; /* 44px a 16px: mínimo táctil recomendado */
+    --min-height-viewport: 100dvh; /* Altura dinámica: evita el salto del navegador móvil */
+
+/* ==========================================================================
+    10. BREAKPOINTS
+    48em (768px) y 30em (480px). Las media queries no admiten var(),
+    así que estos dos valores se repiten en @media como única excepción.
+========================================================================== */
+}
+
+@font-face {
+    font-family: "AppFont"; /* Descriptor del archivo de fuente, no un token de diseño */
+    src: url("../fonts/google-sans.ttf") format("truetype");
+    font-weight: 100 900; /* Rango de la fuente variable */
+    font-style: normal;
+    font-display: swap;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: var(--font-family-base);
+}
+
 body {
-    background-color: skyblue;
+    line-height: var(--line-height-body);
+    color: var(--color-text-main);
+    background-color: var(--color-bg);
+    font-size: var(--text-base);
+    display: flex;
+    flex-direction: column;
+    min-height: var(--min-height-viewport);
+}
+
+main {
+    padding: var(--space-6) var(--space-5);
+    width: 100%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--max-width-content);
+    min-width: 0;
+    margin-inline: auto;
+}
+
+.accent-text {
+    color: var(--color-accent-primary);
+}
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--touch-target);
+    padding: var(--space-2) var(--space-4);
+    border: none;
+    border-radius: var(--radius-lg);
+    transition: background-color var(--transition-base);
+    cursor: pointer;
+    background-color: var(--color-accent-accessible);
+    color: var(--color-on-accent);
+    font-size: var(--text-base);
+    font-weight: var(--font-weight-semibold);
+}
+
+.primary-btn:hover {
+    background-color: var(--color-accent-hover);
+}
+
+h1 {
+    letter-spacing: var(--letter-spacing-heading-large);
+    max-width: var(--max-width-heading);
+    font-size: var(--text-2xl);
+    margin-bottom: var(--space-2);
+    overflow-wrap: break-word;
+}
+
+h1, h2, h3 {
+    line-height: var(--line-height-heading);
+    color: var(--color-text-main);
+}
+
+strong {
+    color: var(--color-text-main);
+}
+
+p {
+    color: var(--color-text-muted);
+    max-width: var(--max-width-text);
+}
+
+p + p {
+    margin-top: var(--space-2);
+}
+
+small {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+}
+
+a {
+    color: var(--color-accent-accessible);
+}
+
+@media (max-width: 48em) {
+    main {
+        padding-inline: var(--space-4);
+    }
+
+    h1 {
+        font-size: var(--text-xl);
+    }
+}
+
+@media (max-width: 30em) {
+    main {
+        padding: var(--space-5) var(--space-3);
+    }
+
+    h1 {
+        font-size: var(--text-lg);
+    }
 }

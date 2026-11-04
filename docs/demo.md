@@ -173,24 +173,7 @@ ruta aparece. Explicar que en Symfony los cambios de configuración pueden reque
 
 ## Cierre: reflexión de cinco líneas
 
-> **Borrador.** El enunciado pide una reflexión personal, así que hay que reescribirla
-> con palabras propias y con lo que realmente te haya pasado. No conviene entregarla
-> tal cual: se nota cuando un texto no es de quien firma.
-
-1. **Qué sabía antes:** había visto PHP y algo de HTML, pero no había montado una
-   aplicación completa ni entendía qué hacía un framework entre la URL y la página.
-2. **Qué aprendí:** a seguir el recorrido de una petición (router → controlador →
-   Twig), a configurar un firewall con `form_login` y a comprobar el resultado con
-   Postman y PHPUnit en lugar de mirar la pantalla a ojo.
-3. **Qué fue lo más difícil:** el CSRF y el login: el formulario fallaba aunque las
-   credenciales fueran correctas, y la causa estaba en cómo se extraía y se guardaba
-   el token, no en la contraseña.
-4. **Cómo lo resolví:** leyendo el log y el profiler, comparando la petición que
-   enviaba Postman con la del navegador, y aislando el fallo con una aserción que
-   comprobara el token antes de usarlo.
-5. **Qué me gustaría investigar después:** las pruebas en integración continua y el
-   despliegue con un servidor real (Nginx o FrankenPHP) en lugar del servidor
-   integrado de PHP, además de la autenticación con roles más finos.
+Antes de este proyecto solo habíamos trabajado con php básico conectándolo, como mucho, a un formulario de html para recibir datos, pero jamás había montado una aplicación completa. Gracias a este proyecto he aprendido a seguir el recorrido de una petición, a configurar un firewall, y a hacer pruebas y tests en Postman. Lo que he encontrado más difícil en este proyecto ha sido adaptarme a symfony, nunca antes lo había visto ni tocado así que todo era nuevo para mi, y el login con todo el tema del security bundle también era nuevo para mi, pero gracias a la IA y a la documentación, he conseguido hacerlo funcionar todo.
 
 ## Después de la demo
 

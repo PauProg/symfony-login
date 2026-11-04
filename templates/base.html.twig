@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Mi App Symfony{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://w3.org viewBox=%220%22 width=%22128%22 height=%22128%22><text y=%221.2em%22 font-size=%2296%22>🐘</text></svg>">
         {% block stylesheets %}{% endblock %}
@@ -9,22 +10,22 @@
             {{ importmap('app') }}
         {% endblock %}
     </head>
-    <body style="background-color:lightgray;">
+    <body>
         <!-- Navegación Global (Reto 3 y 5) -->
-        <nav style="background:#f4f4f4; padding: 10px; margin-bottom: 20px;">
-            <a href="{{ path('app_home') }}">Inicio</a> |
-            <a href="{{ path('app_about') }}">Acerca de</a> |
+        <nav class="site-nav">
+            <a href="{{ path('app_home') }}" class="site-nav__element">Inicio</a>
+            <a href="{{ path('app_about') }}" class="site-nav__element">Acerca de</a>
 
             {% if app.user %}
-                <a href="{{ path('app_dashboard') }}">Dashboard</a> |
-                <a href="{{ logout_path() }}">Cerrar sesión</a>
+                <a href="{{ path('app_dashboard') }}" class="site-nav__element">Dashboard</a>
+                <a href="{{ logout_path() }}" class="site-nav__element">Cerrar sesión</a>
             {% else %}
-                <a href="{{ path('app_login') }}">Iniciar sesión</a>
+                <a href="{{ path('app_login') }}" class="site-nav__element">Iniciar sesión</a>
             {% endif %}
         </nav>
 
         <!-- Contenido Dinámico de las Páginas Hijas -->
-        <main style="padding: 0 20px;">
+        <main>
             {% block body %}{% endblock %}
         </main>
     </body>

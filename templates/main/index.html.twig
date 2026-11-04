@@ -2,10 +2,15 @@
 {% block title %}Inicio - Mi primera App{% endblock %}
 
 {% block body %}
-  <h1>Bienvenido a mi primera aplicación Symfony</h1>
-  <p><strong>Desarrollador: </strong>{{ nombre_alumno }}</p>
-  <p><strong>Sobre el proyecto: </strong>{{ descripcion_proyecto }}</p>
+  <div class="container welcome-page">
+    <section class="welcome-section">
+      <h1>Bienvenido a mi primera aplicación <span class="accent-text">Symfony</span></h1>
+      <p><strong>Desarrollador: </strong>{{ nombre_alumno }}</p>
+      <p><strong>Sobre el proyecto: </strong>{{ descripcion_proyecto }}</p>
+    </section>
 
-  <hr>
-  <small style="color: #666">Petición procesada de forma dinámica el: {{ fecha_actual }}</small>
+    <section class="petition">
+      <small>Petición procesada de forma dinámica el: {{ fecha_actual }}</small>
+    </section>
+  </div>
 {% endblock %}
