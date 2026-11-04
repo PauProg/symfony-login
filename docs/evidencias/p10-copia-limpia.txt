@@ -1,12 +1,13 @@
-## P10 - Copia limpia en el puerto 8081 (2026-11-04 15:24:50)
+## P10 - Copia limpia en el puerto 8081
+Commit: f2028e8 - 2026-11-04 15:44:46
 
-### Archivos de la copia (solo lo versionado en Git)
-git archive HEAD -> C:\Users\pmedina\AppData\Local\Temp\opencode\symfony-clean
+### Copia creada solo con lo versionado en Git
+git archive --format=tar HEAD -o copia.tar
+Destino: C:\Users\pmedina\AppData\Local\Temp\opencode\symfony-clean
 .postman, assets, bin, config, docs, postman, public, src, templates, tests, translations, .editorconfig, .env, .env.dev, .env.test, .gitignore, AGENTS.md, compose.yaml, composer.json, composer.lock, Dockerfile, importmap.php, phpunit.dist.xml, README.md, symfony.lock
-
 ### .env.local propio (ignorado por Git)
-creado .env.local con APP_SECRET aleatorio
-
+Creado .env.local con APP_SECRET aleatorio
+Creado compose.clean.yaml (contenedor symfony_clean, puerto 8081)
 ### docker compose -f compose.clean.yaml -p symfony_clean up -d --build
  Image symfony_clean-web Building 
 #1 [internal] load local bake definitions
@@ -15,54 +16,49 @@ creado .env.local con APP_SECRET aleatorio
 
 #2 [internal] load build definition from Dockerfile
 #2 transferring dockerfile: 223B 0.0s done
-#2 DONE 0.1s
+#2 DONE 0.0s
 
-#3 [internal] load metadata for docker.io/library/php:8.4.1-cli
-#3 DONE 0.1s
+#3 [internal] load metadata for docker.io/library/composer:2
+#3 DONE 0.0s
 
-#4 [internal] load metadata for docker.io/library/composer:2
-#4 ...
+#4 [internal] load metadata for docker.io/library/php:8.4.1-cli
+#4 DONE 0.0s
 
-#5 [auth] library/composer:pull token for registry-1.docker.io
+#5 [internal] load .dockerignore
+#5 transferring context: 2B done
 #5 DONE 0.0s
 
-#4 [internal] load metadata for docker.io/library/composer:2
-#4 DONE 1.0s
+#6 [stage-0 1/4] FROM docker.io/library/php:8.4.1-cli@sha256:246d2ca7e9cf21c4e7c354ce87e87bf1ad6d41b2061c77668845e04a8f8889d4
+#6 resolve docker.io/library/php:8.4.1-cli@sha256:246d2ca7e9cf21c4e7c354ce87e87bf1ad6d41b2061c77668845e04a8f8889d4 0.0s done
+#6 DONE 0.1s
 
-#6 [internal] load .dockerignore
-#6 transferring context: 2B done
-#6 DONE 0.0s
+#7 FROM docker.io/library/composer:2@sha256:5190d9b445add2fa26090108273cb1ef1e1af98175201c737b85b3c4f90fbf7c
+#7 resolve docker.io/library/composer:2@sha256:5190d9b445add2fa26090108273cb1ef1e1af98175201c737b85b3c4f90fbf7c
+#7 resolve docker.io/library/composer:2@sha256:5190d9b445add2fa26090108273cb1ef1e1af98175201c737b85b3c4f90fbf7c 0.0s done
+#7 DONE 0.1s
 
-#7 [stage-0 1/4] FROM docker.io/library/php:8.4.1-cli@sha256:246d2ca7e9cf21c4e7c354ce87e87bf1ad6d41b2061c77668845e04a8f8889d4
-#7 resolve docker.io/library/php:8.4.1-cli@sha256:246d2ca7e9cf21c4e7c354ce87e87bf1ad6d41b2061c77668845e04a8f8889d4 0.0s done
-#7 DONE 0.0s
-
-#8 FROM docker.io/library/composer:2@sha256:5190d9b445add2fa26090108273cb1ef1e1af98175201c737b85b3c4f90fbf7c
-#8 resolve docker.io/library/composer:2@sha256:5190d9b445add2fa26090108273cb1ef1e1af98175201c737b85b3c4f90fbf7c 0.0s done
-#8 DONE 0.0s
+#8 [stage-0 2/4] COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+#8 CACHED
 
 #9 [stage-0 3/4] WORKDIR /var/www/html
 #9 CACHED
 
-#10 [stage-0 2/4] COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+#10 [stage-0 4/4] RUN apt-get update && apt-get install git unzip -y && rm -rf /var/lib/apt/lists/*
 #10 CACHED
 
-#11 [stage-0 4/4] RUN apt-get update && apt-get install git unzip -y && rm -rf /var/lib/apt/lists/*
-#11 CACHED
+#11 exporting to image
+#11 exporting layers done
+#11 exporting manifest sha256:199e53a52b1ff8722d67915f10f01bbe366b9d09256dbef1fef5918051379558 done
+#11 exporting config sha256:83e3f3698ef190cddcd0ec141fa70898654a9aaf5e6a2bdb3735adf3ec7f59cf done
+#11 exporting attestation manifest sha256:a75fce43b412f81bb878ecfc86f5e37844aded1a6a46cb06f4d11cd555941175 0.1s done
+#11 exporting manifest list sha256:eba407cba6410e17315c066b1ef86cd52fcab563a5e97e7f3c88118d9300de51
+#11 exporting manifest list sha256:eba407cba6410e17315c066b1ef86cd52fcab563a5e97e7f3c88118d9300de51 0.0s done
+#11 naming to docker.io/library/symfony_clean-web:latest done
+#11 unpacking to docker.io/library/symfony_clean-web:latest 0.0s done
+#11 DONE 0.2s
 
-#12 exporting to image
-#12 exporting layers done
-#12 exporting manifest sha256:199e53a52b1ff8722d67915f10f01bbe366b9d09256dbef1fef5918051379558 0.0s done
-#12 exporting config sha256:83e3f3698ef190cddcd0ec141fa70898654a9aaf5e6a2bdb3735adf3ec7f59cf 0.0s done
-#12 exporting attestation manifest sha256:6030417c08b96a301d278f7f8c70af5a49be0751182e050b77f23bed4ec86b6e 0.0s done
-#12 exporting manifest list sha256:b0040e12de847593cafabdda81418da7f720c2c528167b3654b37421384e029d 0.0s done
-#12 naming to docker.io/library/symfony_clean-web:latest done
-#12 unpacking to docker.io/library/symfony_clean-web:latest
-#12 unpacking to docker.io/library/symfony_clean-web:latest done
-#12 DONE 0.2s
-
-#13 resolving provenance for metadata file
-#13 DONE 0.0s
+#12 resolving provenance for metadata file
+#12 DONE 0.0s
  Image symfony_clean-web Built 
  Network symfony_clean_default Creating 
  Network symfony_clean_default Creating 
@@ -72,46 +68,32 @@ creado .env.local con APP_SECRET aleatorio
  Container symfony_clean Created 
  Container symfony_clean Starting 
  Container symfony_clean Started 
-
-### docker compose ps (proyecto symfony_clean)
-NAME            STATUS                  PORTS
-symfony_clean   Up Less than a second   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp
-
-### docker compose ps (stack original, sigue arriba)
-NAMES         STATUS              PORTS
-symfony_app   Up About a minute   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
-
-### composer install en la copia limpia
-  - Installing symfony/yaml (v8.1.10): Extracting archive
-  - Installing twig/extra-bundle (v3.29.0): Extracting archive
-Generating autoload files
-112 packages you are using are looking for funding.
-Use the `composer fund` command to find out more!
-System.Management.Automation.RemoteException
+### Los dos stacks a la vez
+NAMES           PORTS                                         STATUS
+symfony_clean   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp   Up Less than a second
+symfony_app     0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   Up About a minute
+### composer install
 Run composer recipes at any time to see the status of your Symfony recipes.
 System.Management.Automation.RemoteException
 Executing script cache:clear [OK]
 Executing script assets:install public [OK]
 Executing script importmap:install [OK]
 
-
+### vendor instalado correctamente
 ### Migraciones
 [notice] Migrating up to App\Migrations\Version20261103161301
-[notice] finished in 146.7ms, used 22M memory, 1 migrations executed, 5 sql queries
+[notice] finished in 89ms, used 22M memory, 1 migrations executed, 5 sql queries
 
  [OK] Successfully migrated to version: App\Migrations\Version20261103161301    
-
 
 
 ### Usuario de prueba
 
  [OK] Usuario "postman" guardado con contrase+¦a hasheada.                       
 
-
-### Comprobacion HTTP de la copia
+### Comprobacion HTTP
 GET http://127.0.0.1:8081/ -> 200
-
-### Coleccion Postman contra http://127.0.0.1:8081 (entorno Clean)
+### Coleccion Postman con el entorno Clean (http://127.0.0.1:8081)
 Running your collection...
 postman
 
@@ -120,19 +102,19 @@ Symfony Login - Fase 5
 Folder 01 - PÔö£Ôòæblicas
 Sub-folder P01 - Home
 
-  GET http://127.0.0.1:8081/ [200 OK, 53.27 KB, 7.3 s]
+  GET http://127.0.0.1:8081/ [200 OK, 53.27 KB, 4.7 s]
   Pass  P01 - 200 OK
   Pass  P01 - P+ígina de inicio
 
 Sub-folder P02 - Acerca de
 
-  GET http://127.0.0.1:8081/acerca-de [200 OK, 53.02 KB, 5.4 s]
+  GET http://127.0.0.1:8081/acerca-de [200 OK, 53.02 KB, 3.1 s]
   Pass  P02 - 200 OK
   Pass  P02 - P+ígina acerca de
 
 Sub-folder P03 - Login (y extracciÔö£Ôöén del CSRF)
 
-  GET http://127.0.0.1:8081/login [200 OK, 53.44 KB, 4.8 s]
+  GET http://127.0.0.1:8081/login [200 OK, 53.44 KB, 3.4 s]
   Pass  P03 - 200 OK
   Pass  P03 - Formulario completo
   Pass  P03 - Token CSRF extra+¡do
@@ -140,47 +122,47 @@ Sub-folder P03 - Login (y extracciÔö£Ôöén del CSRF)
 Folder 02 - Sin sesiÔö£Ôöén
 Sub-folder P06 - Dashboard sin sesiÔö£Ôöén
 
-  GET http://127.0.0.1:8081/dashboard [302 Found, 1.27 KB, 4.4 s]
+  GET http://127.0.0.1:8081/dashboard [302 Found, 1.27 KB, 3 s]
   Pass  P06 - Sin sesi+¦n redirige a login
 
 Folder 03 - Login correcto
 Sub-folder P04a ÔÇö POST /login con credenciales correctas
 
-  POST http://127.0.0.1:8081/login [302 Found, 1.47 KB, 4.9 s]
+  POST http://127.0.0.1:8081/login [302 Found, 1.47 KB, 4.1 s]
   Pass  P04a - Login correcto redirige al dashboard
 
 Sub-folder P04b - Dashboard autenticado
 
-  GET http://127.0.0.1:8081/dashboard [200 OK, 52.99 KB, 4.8 s]
+  GET http://127.0.0.1:8081/dashboard [200 OK, 52.99 KB, 3.4 s]
   Pass  P04b - Dashboard accesible
   Pass  P04b - Muestra el usuario
 
 Folder 04 - Logout
 Sub-folder P07 - Logout
 
-  GET http://127.0.0.1:8081/logout [302 Found, 1.25 KB, 3.8 s]
+  GET http://127.0.0.1:8081/logout [302 Found, 1.25 KB, 2.8 s]
   Pass  P07 - Logout redirige a home
 
 Sub-folder P08 - Dashboard tras logout
 
-  GET http://127.0.0.1:8081/dashboard [302 Found, 1.27 KB, 3.2 s]
+  GET http://127.0.0.1:8081/dashboard [302 Found, 1.27 KB, 2.4 s]
   Pass  P08 - Tras logout vuelve a login
 
 Folder 05 - Login incorrecto
 Sub-folder P05a - POST /login con contrase+¦a incorrecta
 
-  POST http://127.0.0.1:8081/login [302 Found, 1.18 KB, 4.9 s]
+  POST http://127.0.0.1:8081/login [302 Found, 1.18 KB, 3.7 s]
   Pass  P05a - Credenciales incorrectas vuelven al login
 
 Sub-folder P05b - Ver el mensaje de error
 
-  GET http://127.0.0.1:8081/login [200 OK, 53.65 KB, 4.5 s]
+  GET http://127.0.0.1:8081/login [200 OK, 53.65 KB, 3.3 s]
   Pass  P05b - Mensaje de error visible
 
 Folder 06 - Errores
 Sub-folder 404 - Ruta inexistente
 
-  GET http://127.0.0.1:8081/ruta-inexistente [404 Not Found, 248.45 KB, 5.4 s]
+  GET http://127.0.0.1:8081/ruta-inexistente [404 Not Found, 248.45 KB, 3.5 s]
   Pass  404 - Ruta no encontrada
 
 -----------------------------------------------------------------------
@@ -196,19 +178,16 @@ Sub-folder 404 - Ruta inexistente
 --------------------------+---------------------+----------------------
 |              assertions |                  16 |                   0 |
 -----------------------------------------------------------------------
-| total run duration: 54.4 s                                          |
+| total run duration: 38.4 s                                          |
 -----------------------------------------------------------------------
 | total data received: 513.51 KB (approx)                             |
 -----------------------------------------------------------------------
-| average response time: 4.8 s [min: 3.2 s, max: 7.3 s, s.d.: 985 ms] |
+| average response time: 3.4 s [min: 2.4 s, max: 4.7 s, s.d.: 606 ms] |
 -----------------------------------------------------------------------
-
 ### Aislamiento de sesion entre los dos stacks (misma cookie jar)
 POST http://127.0.0.1:8081/login -> 302 http://127.0.0.1:8081/dashboard
 GET http://127.0.0.1:8081/dashboard -> 200
 GET http://localhost:8080/dashboard -> 302 http://localhost:8080/login
-GET http://localhost:8081/dashboard -> 302
-
 ### Usuarios en la BD de la copia (independiente de la principal)
  array(1) {
   [0]=>
@@ -218,12 +197,6 @@ GET http://localhost:8081/dashboard -> 302
   }
 }
 
-
-### Los dos stacks a la vez
-NAMES           PORTS                                         STATUS
-symfony_clean   0.0.0.0:8081->8080/tcp, [::]:8081->8080/tcp   Up 6 minutes
-symfony_app     0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   Up 8 minutes
-
 ### Parada y borrado de la copia limpia
  Container symfony_clean Stopping 
  Container symfony_clean Stopped 
@@ -231,7 +204,6 @@ symfony_app     0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   Up 8 minutes
  Container symfony_clean Removed 
  Network symfony_clean_default Removing 
  Network symfony_clean_default Removed 
-
 ### Contenedores restantes
 NAMES         STATUS
-symfony_app   Up 8 minutes
+symfony_app   Up 6 minutes

@@ -55,6 +55,10 @@ La contraseña no se guarda en Git. Los entornos del repositorio dejan
 `password` vacía y se rellena en Postman. Los ficheros con credenciales
 (`*.private.environment.yaml`) están excluidos en `.gitignore`.
 
+> Al rellenar la contraseña, Postman puede escribirla en el fichero del entorno.
+> Antes de hacer commit, revisa `git diff postman/` y deja `password` vacía en el
+> fichero versionado.
+
 `csrf_token` debe vivir **solo** en la colección. Si se declara también en el
 entorno, la variable de entorno tiene prioridad y anula el valor que guarda P03.
 

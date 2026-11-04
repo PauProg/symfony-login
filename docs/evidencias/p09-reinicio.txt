@@ -1,23 +1,18 @@
-## P09 - Reinicio del stack (2026-11-04 15:23:10)
+## P09 - Reinicio del stack
+Commit: f2028e8 - 2026-11-04 15:43:40
 
 ### docker compose stop
  Container symfony_app Stopping 
  Container symfony_app Stopped 
-
 ### docker compose up -d
- Container symfony_app Recreate 
- Container symfony_app Recreated 
  Container symfony_app Starting 
  Container symfony_app Started 
-
 ### docker compose ps
 NAME          STATUS                  PORTS
 symfony_app   Up Less than a second   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp
-
 ### Comprobacion HTTP tras el reinicio
 GET / -> 200
 GET /dashboard sin sesion -> 302 http://localhost:8080/login
-
 ### Coleccion Postman tras el reinicio
 Running your collection...
 postman
@@ -27,19 +22,19 @@ Symfony Login - Fase 5
 Folder 01 - P+¦blicas
 Sub-folder P01 - Home
 
-  GET http://localhost:8080/ [200 OK, 53.24 KB, 6.2 s]
+  GET http://localhost:8080/ [200 OK, 53.38 KB, 3.3 s]
   Pass  P01 - 200 OK
   Pass  P01 - P+ígina de inicio
 
 Sub-folder P02 - Acerca de
 
-  GET http://localhost:8080/acerca-de [200 OK, 52.99 KB, 8 s]
+  GET http://localhost:8080/acerca-de [200 OK, 53.13 KB, 3.4 s]
   Pass  P02 - 200 OK
   Pass  P02 - P+ígina acerca de
 
 Sub-folder P03 - Login (y extracci+¦n del CSRF)
 
-  GET http://localhost:8080/login [200 OK, 53.4 KB, 7.2 s]
+  GET http://localhost:8080/login [200 OK, 53.54 KB, 3.4 s]
   Pass  P03 - 200 OK
   Pass  P03 - Formulario completo
   Pass  P03 - Token CSRF extra+¡do
@@ -47,65 +42,65 @@ Sub-folder P03 - Login (y extracci+¦n del CSRF)
 Folder 02 - Sin sesi+¦n
 Sub-folder P06 - Dashboard sin sesi+¦n
 
-  GET http://localhost:8080/dashboard [302 Found, 1.27 KB, 4.1 s]
+  GET http://localhost:8080/dashboard [302 Found, 1.27 KB, 2.6 s]
   Pass  P06 - Sin sesi+¦n redirige a login
 
 Folder 03 - Login correcto
 Sub-folder P04a ÔÇö POST /login con credenciales correctas
 
-  POST http://localhost:8080/login [302 Found, 1.47 KB, 5.7 s]
+  POST http://localhost:8080/login [302 Found, 1.47 KB, 3.7 s]
   Pass  P04a - Login correcto redirige al dashboard
 
 Sub-folder P04b - Dashboard autenticado
 
-  GET http://localhost:8080/dashboard [200 OK, 52.95 KB, 5.9 s]
+  GET http://localhost:8080/dashboard [200 OK, 53.09 KB, 3.6 s]
   Pass  P04b - Dashboard accesible
   Pass  P04b - Muestra el usuario
 
 Folder 04 - Logout
 Sub-folder P07 - Logout
 
-  GET http://localhost:8080/logout [302 Found, 1.25 KB, 4.3 s]
+  GET http://localhost:8080/logout [302 Found, 1.25 KB, 2.8 s]
   Pass  P07 - Logout redirige a home
 
 Sub-folder P08 - Dashboard tras logout
 
-  GET http://localhost:8080/dashboard [302 Found, 1.27 KB, 3.7 s]
+  GET http://localhost:8080/dashboard [302 Found, 1.27 KB, 2.6 s]
   Pass  P08 - Tras logout vuelve a login
 
 Folder 05 - Login incorrecto
 Sub-folder P05a - POST /login con contrase+¦a incorrecta
 
-  POST http://localhost:8080/login [302 Found, 1.18 KB, 4.8 s]
+  POST http://localhost:8080/login [302 Found, 1.18 KB, 3.9 s]
   Pass  P05a - Credenciales incorrectas vuelven al login
 
 Sub-folder P05b - Ver el mensaje de error
 
-  GET http://localhost:8080/login [200 OK, 53.62 KB, 4.4 s]
+  GET http://localhost:8080/login [200 OK, 53.76 KB, 3.7 s]
   Pass  P05b - Mensaje de error visible
 
 Folder 06 - Errores
 Sub-folder 404 - Ruta inexistente
 
-  GET http://localhost:8080/ruta-inexistente [404 Not Found, 248.43 KB, 4.7 s]
+  GET http://localhost:8080/ruta-inexistente [404 Not Found, 248.43 KB, 3.6 s]
   Pass  404 - Ruta no encontrada
 
-----------------------------------------------------------------------
-|                         |            executed |             failed |
---------------------------+---------------------+---------------------
-|              iterations |                   1 |                  0 |
---------------------------+---------------------+---------------------
-|                requests |                  11 |                  0 |
---------------------------+---------------------+---------------------
-|            test-scripts |                  11 |                  0 |
---------------------------+---------------------+---------------------
-|      prerequest-scripts |                   1 |                  0 |
---------------------------+---------------------+---------------------
-|              assertions |                  16 |                  0 |
-----------------------------------------------------------------------
-| total run duration: 1 m 0.1s                                       |
-----------------------------------------------------------------------
-| total data received: 513.31 KB (approx)                            |
-----------------------------------------------------------------------
-| average response time: 5.4 s [min: 3.7 s, max: 8 s, s.d.: 1295 ms] |
-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+|                         |            executed |              failed |
+--------------------------+---------------------+----------------------
+|              iterations |                   1 |                   0 |
+--------------------------+---------------------+----------------------
+|                requests |                  11 |                   0 |
+--------------------------+---------------------+----------------------
+|            test-scripts |                  11 |                   0 |
+--------------------------+---------------------+----------------------
+|      prerequest-scripts |                   1 |                   0 |
+--------------------------+---------------------+----------------------
+|              assertions |                  16 |                   0 |
+-----------------------------------------------------------------------
+| total run duration: 37.5 s                                          |
+-----------------------------------------------------------------------
+| total data received: 513.67 KB (approx)                             |
+-----------------------------------------------------------------------
+| average response time: 3.3 s [min: 2.6 s, max: 3.9 s, s.d.: 445 ms] |
+-----------------------------------------------------------------------
