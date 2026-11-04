@@ -111,6 +111,9 @@ correctos. La petición P04a ya la incluye.
 | P10 | Copia limpia desde Git en el puerto 8081, en paralelo con el stack actual | ✅ Pasa | `docs/evidencias/p10-copia-limpia.txt` | Ninguna | — |
 | Extra | `GET /ruta-inexistente` devuelve 404 | ✅ Pasa | `docs/evidencias/p01-p08-postman.txt` | Ninguna | — |
 
+Los casos P01–P08 están además automatizados con PHPUnit; el resultado está en
+`docs/evidencias/phpunit.txt` y se explica en la sección 5.
+
 ### Resultado global de la colección
 
 ```
@@ -306,28 +309,134 @@ repositorio.
 **Corrección:** se dejó un único entorno por stack (`Local` y `Clean`), con
 `baseUrl` fijado y las credenciales rellenadas en Postman, fuera de Git.
 
-## 5. Evidencias
+## 5. Pruebas automatizadas con PHPUnit
+
+Además de Postman, el proyecto incluye una prueba funcional que hace peticiones
+HTTP reales al kernel con `WebTestCase` y `KernelBrowser`. No sustituye a la
+colección: comprueba lo mismo desde dentro de Symfony, sin depender de una
+herramienta externa, y se puede ejecutar en CI.
+
+`tests/Functional/LoginFlowTest.php` contiene seis pruebas:
+
+| Prueba | Casos que cubre |
+|---|---|
+| `testPublicPagesAreAccessible` | P01 y P02 |
+| `testLoginPageShowsFormAndCsrfToken` | P03 |
+| `testDashboardRequiresAuthentication` | P06 |
+| `testLoginWithValidCredentialsRedirectsToDashboard` | P04 |
+| `testLoginWithWrongPasswordShowsError` | P05 |
+| `testLogoutRemovesAccessToDashboard` | P07 y P08 |
+
+Cómo ejecutarlas:
+
+```bash
+docker compose exec web php bin/console doctrine:migrations:migrate --no-interaction --env=test
+docker compose exec web php bin/phpunit
+```
+
+Resultado:
+
+```
+PHPUnit 13.4.6 by Sebastian Bergmann and contributors.
+......                                                              6 / 6 (100%)
+OK (6 tests, 24 assertions)
+```
+
+La prueba crea su propio usuario `phpunit` en la base de datos de test
+(`var/data_test.db`) si no existe, así que no toca los datos de desarrollo.
+
+Evidencia: `docs/evidencias/phpunit.txt`.
+
+## 6. Investigación adicional
+
+### ¿Cómo se consultan los logs de Symfony y Docker?
+
+```bash
+# Salida estándar del contenedor (errores de arranque, avisos del servidor PHP)
+docker compose logs -f web
+
+# Log de la aplicación, el más útil para depurar
+docker compose exec web tail -f var/log/dev.log
+```
+
+- `var/log/dev.log` escribe en desarrollo; en producción el fichero es
+  `var/log/prod.log` y el nivel de detalle es menor.
+- El **profiler** (`http://localhost:8080/_profiler`) muestra la petición,
+  las consultas SQL, el tiempo y la excepción con traza, sin tener que leer el log.
+- En el navegador, la consola de desarrollo sirve para errores de JavaScript;
+  los errores de PHP no aparecen ahí.
+
+### ¿Cómo distinguir un error 404, 403 y 500?
+
+| Código | Significado | Qué lo provoca | Dónde se ve |
+|---|---|---|---|
+| **404** | No encontrado | Ninguna ruta coincide con la URL | `NotFoundHttpException`; en dev, página de error con la ruta buscada |
+| **403** | Prohibido | La ruta existe, pero el usuario no tiene permiso | `AccessDeniedException`; el firewall deniega el acceso |
+| **500** | Error interno | Una excepción no controlada en el controlador, el servicio o la plantilla | Traza en `var/log/dev.log` y en el profiler |
+
+En este proyecto el 404 está comprobado con `/ruta-inexistente` (caso extra de la
+colección). El 403 no se puede provocar con las rutas actuales porque todas las
+rutas privadas piden `ROLE_USER`, que tiene cualquier usuario autenticado: haría
+falta una regla con `ROLE_ADMIN` y entrar con un usuario normal. Un 500 se
+detectaría por el código de estado, la traza del log y el profiler; no debe
+confundirse con un 404, que es una URL mal escrita.
+
+### ¿Qué comprobaciones se pueden automatizar con tests en Symfony?
+
+- Código de estado y redirecciones (`assertResponseStatusCodeSame`,
+  `assertResponseRedirects`).
+- Contenido HTML renderizado: campos del formulario, textos, enlaces.
+- Flujos completos: enviar el formulario de login, seguir la redirección y entrar
+  al dashboard.
+- Seguridad: acceso anónimo, acceso autenticado, logout y pérdida de acceso.
+- Consultas a base de datos y servicios con `KernelTestCase`.
+
+Lo que no cubre `WebTestCase` es el navegador real: CSS, JavaScript y
+comportamiento visual. Para eso haría falta un test de navegador (por ejemplo, Symfony Panther). En esta
+práctica el CSS y el JavaScript no intervienen en la seguridad, así que el HTML y
+el HTTP son suficientes.
+
+La colección de Postman se puede ejecutar también en CI con
+`postman collection run`, y `bin/phpunit` en el mismo pipeline. Así se comprueba
+el contrato HTTP por fuera y el comportamiento interno por dentro.
+
+### ¿Qué cambia si abres el dashboard en una ventana privada del navegador?
+
+Nada en el servidor: la ventana privada empieza sin cookies, así que no envía la
+cookie `PHPSESSID` y `/dashboard` responde `302` hacia `/login`. Es exactamente
+el mismo caso que P06, donde la colección vacía la cookie jar antes de pedir la
+página.
+
+Esto confirma que la protección está en el servidor (`access_control` y firewall)
+y no en el HTML: aunque alguien conociera la URL, sin sesión válida no se ejecuta
+el controlador del dashboard. La ventana privada solo cambia el almacén de
+cookies del cliente, no la configuración de la aplicación.
+
+## 7. Evidencias
 
 | Fichero | Contenido |
 |---|---|
 | `docs/evidencias/p01-p08-postman.txt` | Salida completa de la colección contra `http://localhost:8080`: 11 peticiones, 16 aserciones, 0 fallos |
 | `docs/evidencias/p09-reinicio.txt` | `docker compose stop/up`, comprobación HTTP y colección completa tras el reinicio |
 | `docs/evidencias/p10-copia-limpia.txt` | Creación de la copia desde Git, arranque en 8081, migraciones, usuario, colección 16/16, aislamiento de sesión y borrado final |
+| `docs/evidencias/phpunit.txt` | Migración de la base de datos de test y ejecución de `bin/phpunit`: 6 tests, 24 aserciones, 0 fallos |
 
 Las evidencias son texto reproducible: cualquiera puede volver a ejecutar los
 mismos comandos y obtener la misma salida. No dependen de capturas de pantalla.
 
-## 6. Limitaciones
+## 8. Limitaciones
 
 - No se prueban navegadores reales ni JavaScript del cliente: se verifica el HTML
   y el comportamiento HTTP, que es lo que decide la seguridad.
+- Los tests funcionales de PHPUnit usan `WebTestCase`, no un navegador real; CSS
+  y JavaScript quedan fuera de su alcance.
 - No hay pruebas de carga ni de concurrencia; el alcance de la fase es funcional.
 - El usuario y la contraseña de prueba son locales. No se usan credenciales
   corporativas ni se versionan secretos.
 - La colección asume que existe el usuario `postman`; el comando
   `app:create-user` deja crearlo de forma reproducible.
 
-## 7. Conclusión
+## 9. Conclusión
 
 Los diez casos de la fase 5 pasan. El flujo público, el login, la zona privada, el
 logout, el error de credenciales, la sesión limpia, el reinicio del stack y la
@@ -337,3 +446,6 @@ Las tres incidencias que bloqueaban el login estaban en la propia herramienta de
 pruebas (script del token, variable de entorno y URL vacía), no en la aplicación.
 Corregidas, la colección queda como una comprobación repetible que se puede
 ejecutar en cualquier momento y en cualquier copia del proyecto.
+
+Las mismas comprobaciones están automatizadas con PHPUnit, de modo que el flujo
+de autenticación se puede verificar también sin abrir Postman.

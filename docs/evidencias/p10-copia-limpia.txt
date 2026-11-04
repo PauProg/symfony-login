@@ -112,9 +112,6 @@ Executing script importmap:install [OK]
 GET http://127.0.0.1:8081/ -> 200
 
 ### Coleccion Postman contra http://127.0.0.1:8081 (entorno Clean)
-No authorization data found. Please use the `postman login` command.
-Refer:https://learning.postman.com/docs/postman-cli/postman-cli-options/#postman-login
-
 Running your collection...
 postman
 

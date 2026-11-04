@@ -1,0 +1,21 @@
+## Pruebas funcionales con PHPUnit (2026-11-04 15:38:57)
+
+### Preparar la base de datos de test
+[notice] Migrating up to App\Migrations\Version20261103161301
+[notice] finished in 229ms, used 60.5M memory, 1 migrations executed, 5 sql queries
+
+ [OK] Successfully migrated to version: App\Migrations\Version20261103161301    
+
+
+
+### bin/phpunit
+PHPUnit 13.4.6 by Sebastian Bergmann and contributors.
+
+Runtime:       PHP 8.4.1
+Configuration: /app/phpunit.dist.xml
+
+......                                                              6 / 6 (100%)
+
+Time: 00:50.722, Memory: 52.50 MB
+
+OK (6 tests, 24 assertions)
