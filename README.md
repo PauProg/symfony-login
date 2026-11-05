@@ -418,6 +418,7 @@ Las incidencias de las pruebas (con síntoma, causa y corrección) están detall
 - [Persistencia](docs/persistencia.md)
 - [Autenticación](docs/autenticacion.md)
 - [Pruebas y verificación](docs/pruebas.md)
+- [Guía de estilos](docs/estilos.md)
 - [Guía de demostración](docs/demo.md)
 
 ## Enlaces
