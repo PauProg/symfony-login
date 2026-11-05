@@ -30,12 +30,12 @@ final class LoginFlowTest extends WebTestCase
 
     public function testPublicPagesAreAccessible(): void
     {
-        $this->client->request('GET', '/');
+        $crawler = $this->client->request('GET', '/');
 
         self::assertResponseIsSuccessful();
         self::assertStringContainsString(
             'Bienvenido a mi primera aplicación Symfony',
-            (string) $this->client->getResponse()->getContent(),
+            $crawler->filter('h1')->text(),
         );
 
         $this->client->request('GET', '/acerca-de');
